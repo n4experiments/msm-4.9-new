@@ -218,4 +218,11 @@ config PINCTRL_QCOM_SSBI_PMIC
          which are using SSBI for communication with SoC. Example PMIC's
          devices are pm8058 and pm8921.
 
+config PINCTRL_PARANOID
+	tristate "Workaround for broken readl on GPIO config regs"
+	depends on PINCTRL_MSM
+	help
+	  In some revisions of silicon, we have seen readl return bad
+	  values.  With this set, retry all reads in this suspect area on non
+	  volatile registers.
 endif
