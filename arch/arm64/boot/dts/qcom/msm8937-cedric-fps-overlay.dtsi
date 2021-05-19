@@ -10,8 +10,10 @@
  * GNU General Public License for more details.
  */
 
-&aliases {
+/ {
+	aliases {
 		spi6 = &spi_6;
+	};
 };
 
 &tlmm {

@@ -29,10 +29,18 @@
 };
 
 &soc {
+	android_usb: android_usb@086000c8 {
+		compatible = "qcom,android-usb";
+		reg = <0x086000c8 0xc8>;
+		qcom,pm-qos-latency = <2 1001 12701>;
+	};
+	
 	sound {
 		/delete-property/ qcom,cdc-us-euro-gpios;
 		/delete-property/ qcom,msm-micbias1-ext-cap;
 		/delete-property/ qcom,msm-micbias2-ext-cap;
+		/delete-property/ asoc-wsa-codec-names;
+		/delete-property/ asoc-wsa-codec-prefixes;
 
 		qcom,msm-gpios =
 			"pri_i2s";
@@ -145,11 +153,16 @@
 
 &pmi_haptic {
 	qcom,vmax-mv = <2700>;
+	qcom,actuator-type = <1>;
 };
 
 &qcom_seecom {
 	/delete-property/ qcom,commonlib64-loaded-by-uefi;
 	qcom,appsbl-qseecom-support;
+};
+
+&qcom_rng {
+	status = "okay";
 };
 
 &apps_iommu {
