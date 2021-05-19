@@ -12,8 +12,7 @@
 
 /dts-v1/;
 
-#include "moto-msm8937.dtsi"
-#include "moto/cedric-overlay.dtsi"
+#include "msm8937-cedric.dtsi"
 
 / {
 	qcom,board-id = <0x41 0x8300>;
