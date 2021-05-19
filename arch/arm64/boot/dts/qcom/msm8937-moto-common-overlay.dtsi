@@ -249,7 +249,7 @@
 			};
 		};
 	};
-
+	
 	qcom,sensor-information {
 		sensor_information12: qcom,sensor-information-12 {
 			qcom,sensor-type = "adc";
@@ -403,7 +403,7 @@
 	      <0x7884000 0x1f000>;
 	interrupt-names = "spi_irq", "spi_bam_irq";
 	/* IRQ 239 for BLSP2 */
-	interrupts = <0 98 0>, <0 238 0>;
+	interrupts = <0 98 0 IRQ_TYPE_NONE>, <0 238 0 IRQ_TYPE_NONE>;
 	spi-max-frequency = <19200000>;
 	pinctrl-names = "spi_default", "spi_sleep";
 	pinctrl-0 = <&spi4_default &spi4_cs0_active>;
@@ -420,7 +420,7 @@
 	qcom,bam-producer-pipe-index = <11>;
 	/* master-id for BLSP2 is MSM_BUS_MASTER_BLSP_1 or 84 */
 	qcom,master-id = <86>;
-	status = "okay";
+	status = "ok";
 	stml0xx: stml0xx@0 {
 		 compatible = "stm,stml0xx";
 		 stml0xx_fw_version = "stml05x";
