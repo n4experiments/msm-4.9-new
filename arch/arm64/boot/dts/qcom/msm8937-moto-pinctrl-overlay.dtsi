@@ -235,7 +235,7 @@
 			};
 		};
 
-		spi_7_sleep:spi_7_sleep {
+		spi_7_sleep: spi_7_sleep {
 			mux {
 				/* MOSI, MISO, CLK */
 				pins = "gpio85", "gpio86", "gpio88";
@@ -245,19 +245,6 @@
 				pins = "gpio85", "gpio86", "gpio88";
 				drive-strength = <2>; /* 2 MA */
 				bias-pull-down; /* PULL Down */
-			};
-		};
-
-		spi7_cs0_active: spi7_cs0_active {
-			/* CS */
-			mux {
-				pins = "gpio87";
-				function = "blsp_spi7";
-			};
-			config {
-				pins = "gpio87";
-				drive-strength = <2>;
-				bias-disable;
 			};
 		};
 
