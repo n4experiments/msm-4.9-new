@@ -1162,7 +1162,7 @@ static int msm_mi2s_snd_startup(struct snd_pcm_substream *substream)
 	struct snd_soc_card *card = rtd->card;
 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 	struct msm_asoc_mach_data *pdata = snd_soc_card_get_drvdata(card);
-#ifdef CONFIG_MONTANA_DTB
+#ifdef CONFIG_SND_LEGACY
 	struct snd_soc_codec *dig_cdc = rtd->codec_dais[DIG_CDC]->codec;
 	struct snd_soc_codec *ana_cdc = rtd->codec_dais[ANA_CDC]->codec;
 #endif
@@ -1207,7 +1207,7 @@ static int msm_mi2s_snd_startup(struct snd_pcm_substream *substream)
 			return ret;
 		}
 	}
-#ifdef CONFIG_MONTANA_DTB
+#ifdef CONFIG_SND_LEGACY
 	ret =  msm8952_enable_dig_cdc_clk(dig_cdc, 1, true);
 	if (ret < 0) {
 		pr_err("failed to enable mclk\n");
