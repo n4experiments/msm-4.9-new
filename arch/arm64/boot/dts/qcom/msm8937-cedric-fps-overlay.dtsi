@@ -106,12 +106,69 @@
 			};
 		};
 	};
+	
+	/delete-node/ spi6;
+
+	spi_6 {
+		spi_6_active: spi_6_active {
+			mux {
+				/* MOSI, MISO, CLK */
+				pins = "gpio20", "gpio21", "gpio23";
+				function = "blsp_spi6";
+			};
+
+			config {
+				pins = "gpio20", "gpio21", "gpio23";
+				drive-strength = <12>; /* 12 MA */
+				bias-disable = <0>; /* No PULL */
+			};
+		};
+
+		spi_6_sleep: spi_6_sleep {
+			mux {
+				/* MOSI, MISO, CLK */
+				pins = "gpio20", "gpio21", "gpio23";
+				function = "blsp_spi6";
+			};
+
+			config {
+				pins = "gpio20", "gpio21", "gpio23";
+				drive-strength = <2>; /* 2 MA */
+				bias-pull-down; /* PULL Down */
+			};
+		};
+
+		spi6_cs0_active: cs0_active {
+			mux {
+				pins = "gpio22";
+				function = "blsp_spi6";
+			};
+
+			config {
+				pins = "gpio22";
+				drive-strength = <2>;
+				bias-disable = <0>;
+			};
+		};
+
+		spi6_cs0_sleep: cs0_sleep {
+			mux {
+				pins = "gpio22";
+				function = "blsp_spi6";
+			};
+
+			config {
+				pins = "gpio22";
+				drive-strength = <2>;
+				bias-disable = <0>;
+			};
+		};
+	};
 };
 
 &soc {
-/delete-node/ spi@7af6000;
-
-spi_6: spi@7af6000 { /* BLSP2 QUP2 */
+	/delete-node/ spi@7af6000;
+	spi_6: spi@7af6000 { /* BLSP2 QUP2 */
 		compatible = "qcom,spi-qup-v2";
 		status = "ok";
 		#address-cells = <1>;
@@ -123,8 +180,8 @@ spi_6: spi@7af6000 { /* BLSP2 QUP2 */
 		spi-max-frequency = <19200000>;
 
 		pinctrl-names = "spi_default", "spi_sleep";
-		pinctrl-0 = <&spi6_default>;
-		pinctrl-1 = <&spi6_sleep>;
+		pinctrl-0 = <&spi_6_active>;
+		pinctrl-1 = <&spi_6_sleep>;
 		qcom,infinite-mode = <0>;
 		qcom,master-id = <84>;
 		qcom,use-pinctrl;
@@ -147,5 +204,7 @@ spi_6: spi@7af6000 { /* BLSP2 QUP2 */
 			clocks = <&clock_gcc clk_gcc_blsp2_ahb_clk>,
 			<&clock_gcc clk_gcc_blsp2_qup2_spi_apps_clk>;
 		};
+	};
 };
-};
+
+
