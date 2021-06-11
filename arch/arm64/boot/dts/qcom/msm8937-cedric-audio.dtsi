@@ -35,17 +35,13 @@
 		qcom,msm-ext-pa = "quinary";
 		qcom,msm-mclk-freq = <9600000>;
 		qcom,msm-mbhc-hphl-swh = <1>;
-		qcom,msm-mbhc-gnd-swh = <0>;
+		qcom,msm-mbhc-gnd-swh = <1>;
 		qcom,msm-hs-micbias-type = "internal";
 
 		qcom,pri-mi2s-gpios = <&cdc_pri_mi2s_gpios>;
-		qcom,quin-mi2s-gpios = <&cdc_quin_mi2s_gpios>;
-		qcom,cdc-us-euro-gpios = <&tlmm 63 0>;
 		qcom,cdc-us-eu-gpios = <&cdc_us_euro_sw>;
 		
-		qcom,msm-gpios =
-			"pri_i2s",
-			"quin_i2s";
+		qcom,msm-gpios = "pri_i2s";
 
 		qcom,audio-routing =
 			"RX_BIAS", "MCLK",
@@ -101,24 +97,6 @@
 		qcom,msm-vdd-wsa-switch-voltage = <1800000>;
 		qcom,msm-vdd-wsa-switch-current = <10000>;
 
-		qcom,pinctrl-names =
-			"all_off",
-			"pri_i2s_act",
-			"quin_act",
-			"quin_pri_i2s_act";
-		pinctrl-names =
-			"all_off",
-			"pri_i2s_act",
-			"quin_act",
-			"quin_pri_i2s_act";
-		pinctrl-0 = <&cdc_pdm_lines_sus &cdc_pdm_lines_2_sus
-			&pri_tlmm_lines_sus &pri_tlmm_ws_sus>;
-		pinctrl-1 = <&cdc_pdm_lines_act &cdc_pdm_lines_2_act
-			&pri_tlmm_lines_sus &pri_tlmm_ws_sus>;
-		pinctrl-2 = <&cdc_pdm_lines_sus &cdc_pdm_lines_2_sus
-			&pri_tlmm_lines_act &pri_tlmm_ws_act>;
-		pinctrl-3 = <&cdc_pdm_lines_act &cdc_pdm_lines_2_act
-			&pri_tlmm_lines_act &pri_tlmm_ws_act>;
 	};
 
 	lpa: qcom,msm-pcm-lpa {
