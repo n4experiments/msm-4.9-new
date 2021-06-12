@@ -38,6 +38,9 @@
 
 #include <linux/stml0xx.h>
 
+#undef dev_dbg
+#define dev_dbg dev_err
+
 enum headset_state_t {
 	SH_HEADSET_REMOVED,
 	SH_HEADPHONE_INSERTED,
@@ -156,6 +159,8 @@ void stml0xx_irq_wake_work_func(struct work_struct *work)
 	    (buf[WAKE_IRQ_IDX_ALGO_STATUS_MED] << 8) |
 		buf[WAKE_IRQ_IDX_ALGO_STATUS_LO];
 
+	printk(KERN_ERR "stml0xx: got irq %d and 2 %d", irq_status, irq2_status);
+	
 	/* If SH not fully booted, filter on relevant msgs only */
 	if (!stml0xx_g_booted) {
 		irq_status &= (M_LOG_MSG | M_INIT_COMPLETE | M_HUB_RESET);
