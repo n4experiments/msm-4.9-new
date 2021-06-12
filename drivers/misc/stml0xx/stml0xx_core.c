@@ -380,7 +380,9 @@ static struct stml0xx_platform_data *stml0xx_of_init(struct spi_device *spi)
 		pdata->gpio_sh_wake = -1;
 		stml0xx_misc_data->sh_lowpower_enabled = 0;
 	}
-
+#define g(x) pdata->gpio_##x, gpio_is_valid(pdata->gpio_##x)
+        printk(KERN_ERR "gpio debug: num(valid?)- int %d(%d) reset %d(%d) bslen %d(%d) wakeirq %d(%d) spiready %d(%d) spiack %d(%d) wake %d(%d)", g(int), g(reset), g(bslen), g(wakeirq), g(spi_ready_for_receive), g(spi_data_ack), g(sh_wake));
+#undef g
 	if (of_get_property(np, "lux_table", &len) == NULL) {
 		dev_err(&stml0xx_misc_data->spi->dev,
 			"lux_table len access failure");
@@ -912,8 +914,10 @@ static int stml0xx_probe(struct spi_device *spi)
 		goto err4;
 	}
 
-	if (ps_stml0xx->irq_wake != -1)
+	if (ps_stml0xx->irq_wake != -1) {
+    printk(KERN_ERR "stml0xx irq_wake enable");
 		enable_irq_wake(ps_stml0xx->irq_wake);
+    }
 	atomic_set(&ps_stml0xx->enabled, 1);
 
 	err = misc_register(&stml0xx_misc_device);
@@ -961,6 +965,7 @@ static int stml0xx_probe(struct spi_device *spi)
 	}
 
 	if (ps_stml0xx->irq_wake != -1) {
+    printk(KERN_ERR "stml0xx irq_wake register");
 		err = request_irq(ps_stml0xx->irq_wake, stml0xx_wake_isr,
 				  IRQF_TRIGGER_RISING, NAME, ps_stml0xx);
 		if (err < 0) {

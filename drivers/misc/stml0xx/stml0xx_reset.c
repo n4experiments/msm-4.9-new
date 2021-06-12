@@ -38,22 +38,30 @@
 
 #include <linux/stml0xx.h>
 
+//me being desperate and doing dumb things
+//#define gpio_set_value gpio_direction_output
+
 void stml0xx_reset(struct stml0xx_platform_data *pdata)
 {
 	dev_err(&stml0xx_misc_data->spi->dev, "stml0xx_reset");
 	stml0xx_g_booted = 0;
+	
+	printk(KERN_ERR "stml0xx: gpio is %d, excepting %d",gpio_get_value(pdata->gpio_reset), 0);
+	
+	if (pdata->reset_hw_type != 0)
+		printk(KERN_ERR "out direction call returned %d, 0 is ok",gpio_direction_output(pdata->gpio_reset, 1));
+
+	msleep(10 /*stml0xx_spi_retry_delay*/);
+	printk(KERN_ERR "stml0xx: gpio is %d, excepting %d",gpio_get_value(pdata->gpio_reset), 1);
+	/*printk(KERN_ERR "out direction(value well) call returned %d, 0 is ok",*/gpio_set_value(pdata->gpio_reset, 0)/*)*/;
+	printk(KERN_ERR "stml0xx: gpio is %d, excepting %d",gpio_get_value(pdata->gpio_reset), 0);
+	msleep(10 /*stml0xx_spi_retry_delay*/);
+	/*printk(KERN_ERR "out direction(value well) call returned %d, 0 is ok",*/gpio_set_value(pdata->gpio_reset, 1)/*)*/;
+	printk(KERN_ERR "stml0xx: gpio is %d, excepting %d",gpio_get_value(pdata->gpio_reset), 1);
+	msleep(50 /*STML0XX_RESET_DELAY*/);
 
 	if (pdata->reset_hw_type != 0)
-		gpio_direction_output(pdata->gpio_reset, 1);
-
-	msleep(stml0xx_spi_retry_delay);
-	gpio_set_value(pdata->gpio_reset, 0);
-	msleep(stml0xx_spi_retry_delay);
-	gpio_set_value(pdata->gpio_reset, 1);
-	msleep(STML0XX_RESET_DELAY);
-
-	if (pdata->reset_hw_type != 0)
-		gpio_direction_input(pdata->gpio_reset);
+		printk(KERN_ERR "in direction call returned %d, 0 is ok",gpio_direction_input(pdata->gpio_reset));
 }
 
 void stml0xx_initialize_work_func(struct work_struct *work)

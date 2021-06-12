@@ -38,6 +38,9 @@
 
 #include <linux/stml0xx.h>
 
+#undef dev_dbg
+#define dev_dbg dev_err
+
 enum headset_state_t {
 	SH_HEADSET_REMOVED,
 	SH_HEADPHONE_INSERTED,
@@ -63,8 +66,14 @@ irqreturn_t stml0xx_wake_isr(int irq, void *dev)
 	struct stml0xx_delayed_work_struct *stm_ws;
 	struct stml0xx_data *ps_stml0xx = dev;
 
-	if (stml0xx_irq_disable)
+	dev_err(&ps_stml0xx->spi->dev, "wake_isr pre disable test.");
+
+	if (stml0xx_irq_disable) {
+		dev_err(&ps_stml0xx->spi->dev, "wake_isr is disabled. cancel!");
 		return IRQ_HANDLED;
+	}
+
+	dev_err(&ps_stml0xx->spi->dev, "wake_isr not disabled.");
 
 	get_monotonic_boottime(&ts);
 
@@ -156,6 +165,8 @@ void stml0xx_irq_wake_work_func(struct work_struct *work)
 	    (buf[WAKE_IRQ_IDX_ALGO_STATUS_MED] << 8) |
 		buf[WAKE_IRQ_IDX_ALGO_STATUS_LO];
 
+	printk(KERN_ERR "stml0xx: got irq %lu and 2 %lu", irq_status, irq2_status);
+	
 	/* If SH not fully booted, filter on relevant msgs only */
 	if (!stml0xx_g_booted) {
 		irq_status &= (M_LOG_MSG | M_INIT_COMPLETE | M_HUB_RESET);

@@ -38,7 +38,8 @@
 
 #include <linux/stml0xx.h>
 
-
+#undef dev_dbg
+#define dev_dbg dev_err
 
 /**
  * stml0xx_ioctl_work_func() - process ioctl requests asynchronously
@@ -231,6 +232,9 @@ long stml0xx_misc_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 
 	if (!stml0xx_misc_data)
 		stml0xx_misc_data = file->private_data;
+
+	if (!stml0xx_g_booted)
+		dev_dbg(&stml0xx_misc_data->spi->dev, "not booted but ioctl!");
 
 	/* Commands to respond immediately without waiting for the mutex lock */
 	cmd_handled = true;
