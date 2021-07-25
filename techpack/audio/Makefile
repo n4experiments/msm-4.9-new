@@ -27,6 +27,10 @@ LINUXINCLUDE    += \
                 -I$(srctree)/techpack/audio/include
 
 ifeq ($(CONFIG_ARCH_MSM8937), y)
+ifeq ($(CONFIG_MONTANA_DTB), y)
+LINUXINCLUDE    += \
+                -include $(srctree)/techpack/audio/config/msm8937montanaconf.h
+endif
 LINUXINCLUDE    += \
                 -include $(srctree)/techpack/audio/config/msm8937autoconf.h
 endif
