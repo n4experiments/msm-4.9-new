@@ -414,7 +414,7 @@
 	qcom,bam-producer-pipe-index = <11>;
 	/* master-id for BLSP2 is MSM_BUS_MASTER_BLSP_1 or 84 */
 	qcom,master-id = <86>;
-	status = "okay";
+	status = "ok";
 	stml0xx: stml0xx@0 {
 		 compatible = "stm,stml0xx";
 		 stml0xx_fw_version = "stml05x";
