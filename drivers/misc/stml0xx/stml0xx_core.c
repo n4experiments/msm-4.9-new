@@ -58,7 +58,7 @@
 #define DROPBOX_SENSORHUB_POWERON_ISSUE "sensorhub_poweron_issue"
 
 long stml0xx_time_delta;
-unsigned int stml0xx_irq_disable;
+unsigned int stml0xx_irq_disable = 0;
 module_param_named(irq_disable, stml0xx_irq_disable, uint, 0644);
 
 unsigned short stml0xx_spi_retry_delay = 10;
