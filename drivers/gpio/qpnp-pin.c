@@ -904,10 +904,9 @@ static int qpnp_pin_cs_en(struct qpnp_pin_chip *q_chip,
 
 	q_reg_clr_set(reg, shift, mask, !!value);
 
-	rc = spmi_ext_register_writel(q_chip->spmi->ctrl, q_spec->slave,
-						address, reg, 1);
+	rc = regmap_write(q_chip->regmap, address, *reg);
 	if (rc)
-		dev_err(&q_chip->spmi->dev, "%s: spmi write failed\n",
+		dev_err(&q_chip->pdev->dev, "%s: spmi write failed\n",
 								__func__);
 	return rc;
 }
