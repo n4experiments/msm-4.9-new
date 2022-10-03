@@ -144,3 +144,9 @@
 &apps_iommu {
 	qcom,no-aarch64;
 };
+
+&i2c_2 {
+    sx9310@28 {
+        cap_vdd-supply = <&pm8937_l10>;
+    };
+};
